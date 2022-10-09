@@ -2,6 +2,7 @@ package ex1.algorithms;
 
 import ex1.*;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,39 +14,44 @@ public class MinimumSpanningTree {
         this.graph = graph;
     }
 
-    public List<Edge> calculate() {
-        List<Edge> edges = this.graph.getEdges();
+    public List<WeightedEdge> calculate() {
+        List<WeightedEdge> edges = this.graph.getEdges();
         List<Node> nodes = this.graph.getNodes();
-        List<Edge> result = new LinkedList<>();
+        List<WeightedEdge> result = new LinkedList<>();
         if(edges.isEmpty() || nodes.isEmpty()) {
             return result;
         }
 
-        Color passed = new Color("red");
-
         Node target = nodes.get(0);
-        target.setColor(passed);
-        Edge minWeight = findMinNotColored(edges, passed);
+        target.mark();
+        WeightedEdge minWeight = findMinNotMarked();
         while(minWeight != null) {
-            minWeight.setColor(passed);
-            minWeight.getA().setColor(passed);
-            minWeight.getB().setColor(passed);
+            minWeight.mark();
+            minWeight.getA().mark();
+            minWeight.getB().mark();
             result.add(minWeight);
 
-            minWeight = findMinNotColored(edges, passed);
+            minWeight = findMinNotMarked();
+        }
+
+        for(WeightedEdge e: edges) {
+            e.unmark();
+        }
+        for(Node n: nodes) {
+            n.unmark();
         }
 
         return result;
     }
 
-    private Edge findMinNotColored(List<Edge> edges, Color colorOfPassed) {
-        Edge cheapest = null;
-
-        for (Edge edge : edges) {
-            if (edge.getColor() != colorOfPassed && edge.hasOneNodeColor(colorOfPassed) && (cheapest == null || cheapest.getWeight() > edge.getWeight())) {
-                cheapest = edge;
-            }
-        }
-        return cheapest;
+    private WeightedEdge findMinNotMarked() {
+        return this.graph.getNodes().stream()
+                .filter(Node::isMarked)
+                .map(Node::getEdges)
+                .flatMap(List::stream)
+                .filter(e -> !e.isMarked())
+                .filter(WeightedEdge::isExactlyOneNodeMarked)
+                .min(Comparator.comparing(WeightedEdge::getWeight))
+                .orElse(null);
     }
 }

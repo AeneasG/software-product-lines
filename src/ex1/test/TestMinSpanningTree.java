@@ -42,8 +42,8 @@ public class TestMinSpanningTree {
         graph.addEdge(nodes.get('I'), nodes.get('J'), 3);
 
         MinimumSpanningTree min = new MinimumSpanningTree(graph);
-        List<Edge> minSpanningTree = min.calculate();
-        for(Edge e : minSpanningTree) {
+        List<WeightedEdge> minSpanningTree = min.calculate();
+        for(WeightedEdge e : minSpanningTree) {
             System.out.println(e.getA() + ", " + e.getB());
         }
     }

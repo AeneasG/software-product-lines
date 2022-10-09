@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Graph {
-    List<Edge> edges;
+    List<WeightedEdge> edges;
     List<Node> nodes;
 
     public Graph() {
@@ -12,8 +12,8 @@ public class Graph {
         this.nodes = new LinkedList<>();
     }
 
-    public Edge addEdge(Node a, Node b, Integer weight) {
-        Edge e = new Edge(a, b, weight);
+    public WeightedEdge addEdge(Node a, Node b, Integer weight) {
+        WeightedEdge e = new WeightedEdge(a, b, weight);
         a.addEdge(e);
         b.addEdge(e);
         this.edges.add(e);
@@ -26,7 +26,7 @@ public class Graph {
         return n;
     }
 
-    public List<Edge> getEdges() {
+    public List<WeightedEdge> getEdges() {
         return this.edges;
     }
 
