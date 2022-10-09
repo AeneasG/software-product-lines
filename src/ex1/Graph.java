@@ -1,6 +1,7 @@
 package ex1;
 
 import ex1.factories.AbstractEdgeFactory;
+import ex1.factories.AbstractNodeFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,11 +12,13 @@ public class Graph implements IGraph {
     protected List<Node> nodes;
 
     protected AbstractEdgeFactory edgeFactory;
+    protected AbstractNodeFactory nodeFactory;
 
-    public Graph(AbstractEdgeFactory edgeFactory) {
+    public Graph(AbstractEdgeFactory edgeFactory, AbstractNodeFactory nodeFactory) {
         this.edges = new LinkedList<>();
         this.nodes = new LinkedList<>();
         this.edgeFactory = edgeFactory;
+        this.nodeFactory = nodeFactory;
     }
 
     @Override
@@ -29,7 +32,7 @@ public class Graph implements IGraph {
 
     @Override
     public Node addNode(String nodeId) {
-        Node n = new Node(nodeId);
+        Node n = this.nodeFactory.createNode(nodeId);
         this.nodes.add(n);
         return n;
     }

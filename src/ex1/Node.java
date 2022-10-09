@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Node {
-    private List<Edge> edges;
+    protected List<Edge> edges;
 
-    private Boolean isMarked;
-    private String nodeId;
+    protected Boolean isMarked;
+    protected String nodeId;
 
     public Node(String nodeId) {
         this.edges = new LinkedList<>();
