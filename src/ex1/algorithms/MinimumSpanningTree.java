@@ -8,14 +8,14 @@ import java.util.List;
 
 public class MinimumSpanningTree {
 
-    Graph graph;
+    WeightedGraph graph;
 
-    public MinimumSpanningTree(Graph graph) {
+    public MinimumSpanningTree(WeightedGraph graph) {
         this.graph = graph;
     }
 
     public List<WeightedEdge> calculate() {
-        List<WeightedEdge> edges = this.graph.getEdges();
+        List<WeightedEdge> edges = this.graph.getWeightedEdges();
         List<Node> nodes = this.graph.getNodes();
         List<WeightedEdge> result = new LinkedList<>();
         if(edges.isEmpty() || nodes.isEmpty()) {
@@ -50,6 +50,7 @@ public class MinimumSpanningTree {
                 .map(Node::getEdges)
                 .flatMap(List::stream)
                 .filter(e -> !e.isMarked())
+                .map(e -> (WeightedEdge) e)
                 .filter(WeightedEdge::isExactlyOneNodeMarked)
                 .min(Comparator.comparing(WeightedEdge::getWeight))
                 .orElse(null);

@@ -3,6 +3,7 @@ package ex1.test;
 import ex1.*;
 import ex1.algorithms.DepthFirstSearch;
 import ex1.algorithms.MinimumSpanningTree;
+import ex1.factories.WeightedEdgeFactory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public class TestMinSpanningTree {
 
     public static void main(String[] args) {
-        Graph graph = new Graph();
+        WeightedGraph graph = new WeightedGraph(new Graph(new WeightedEdgeFactory()));
 
         HashMap<String, Node> nodes = new HashMap<String, Node>();
 
@@ -50,8 +51,8 @@ public class TestMinSpanningTree {
 
         System.out.println("DFS result");
         DepthFirstSearch dfs = new DepthFirstSearch(graph);
-        List<WeightedEdge> res = dfs.calculate(null);
-        for(WeightedEdge e : res) {
+        List<Edge> res = dfs.calculate("G");
+        for(Edge e : res) {
             System.out.println(e.getA() + ", " + e.getB());
         }
     }

@@ -4,22 +4,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Node {
-    private List<WeightedEdge> edges;
+    private List<Edge> edges;
 
     private Boolean isMarked;
     private String nodeId;
 
     public Node(String nodeId) {
-        this.edges = new LinkedList<WeightedEdge>();
+        this.edges = new LinkedList<>();
         this.nodeId = nodeId;
         this.isMarked = false;
     }
 
-    void addEdge(WeightedEdge edge) {
+    void addEdge(Edge edge) {
         this.edges.add(edge);
     }
 
-    public List<WeightedEdge> getEdges() {
+    public List<Edge> getEdges() {
         return edges;
     }
 

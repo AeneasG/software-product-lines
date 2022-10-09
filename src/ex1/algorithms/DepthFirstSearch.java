@@ -1,8 +1,6 @@
 package ex1.algorithms;
 
-import ex1.Graph;
-import ex1.Node;
-import ex1.WeightedEdge;
+import ex1.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -10,18 +8,16 @@ import java.util.Stack;
 
 public class DepthFirstSearch {
 
-    private final Graph graph;
+    private final IGraph graph;
 
-    public DepthFirstSearch(Graph graph) {
+    public DepthFirstSearch(WeightedGraph graph) {
         this.graph = graph;
     }
 
-    public List<WeightedEdge> calculate(String nodeId) {
-        Boolean traversingOnly = nodeId == null;
-
-        List<WeightedEdge> edges = this.graph.getEdges();
+    public List<Edge> calculate(String nodeId) {
+        List<Edge> edges = this.graph.getEdges();
         List<Node> nodes = this.graph.getNodes();
-        List<WeightedEdge> result = new LinkedList<>();
+        List<Edge> result = new LinkedList<>();
         if(edges.isEmpty() || nodes.isEmpty()) {
             return result;
         }
@@ -29,7 +25,7 @@ public class DepthFirstSearch {
         Node firstNode = nodes.get(0);
         result = traverseNonRecursive(firstNode, nodeId);
 
-        for(WeightedEdge e: edges) {
+        for(Edge e: edges) {
             e.unmark();
         }
         for(Node n: nodes) {
@@ -39,29 +35,13 @@ public class DepthFirstSearch {
         return result;
     }
 
-    private List<WeightedEdge> traverse(Node n, String target) {
+    private List<Edge> traverseNonRecursive(Node n, String target) {
         n.mark();
-        List<WeightedEdge> edges = n.getEdges();
-        List<WeightedEdge> result = new LinkedList<>();
-        for(WeightedEdge e: edges) {
-            if(!e.isMarked() && e.isExactlyOneNodeMarked()) {
-                Node next = e.getA() == n ? e.getB() : e.getA();
-                e.mark();
-                if(next.getNodeId().equals(target)) {
-                    return result;
-                }
-                result.addAll(traverse(next, target));
-            }
-        }
-        return result;
-    }
-    private List<WeightedEdge> traverseNonRecursive(Node n, String target) {
-        n.mark();
-        Stack<WeightedEdge> edges = new Stack<>();
+        Stack<Edge> edges = new Stack<>();
         edges.addAll(n.getEdges());
-        List<WeightedEdge> result = new LinkedList<>();
+        List<Edge> result = new LinkedList<>();
         while(!edges.isEmpty()) {
-            WeightedEdge e = edges.pop();
+            Edge e = edges.pop();
             if(!e.isMarked() && e.isExactlyOneNodeMarked()) {
                 Node next = e.getA() == n ? e.getB() : e.getA();
                 e.mark();
