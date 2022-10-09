@@ -20,7 +20,7 @@ public class Graph {
         return e;
     }
 
-    public Node addNode(char nodeId) {
+    public Node addNode(String nodeId) {
         Node n = new Node(nodeId);
         this.nodes.add(n);
         return n;

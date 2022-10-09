@@ -7,9 +7,9 @@ public class Node {
     private List<WeightedEdge> edges;
 
     private Boolean isMarked;
-    private char nodeId;
+    private String nodeId;
 
-    public Node(char nodeId) {
+    public Node(String nodeId) {
         this.edges = new LinkedList<WeightedEdge>();
         this.nodeId = nodeId;
         this.isMarked = false;
