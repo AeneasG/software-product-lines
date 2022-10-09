@@ -36,6 +36,10 @@ public class Node {
     }
 
     public String toString() {
-        return this.nodeId + "";
+        return this.nodeId;
+    }
+
+    public String getNodeId() {
+        return this.nodeId;
     }
 }
