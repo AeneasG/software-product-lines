@@ -1,4 +1,8 @@
-package ex1;
+package ex1.graph;
+
+import ex1.node.INode;
+import ex1.node.Node;
+import ex1.edge.WeightedEdge;
 
 public class WeightedGraph extends GraphDecorator implements IGraph {
 
@@ -6,7 +10,7 @@ public class WeightedGraph extends GraphDecorator implements IGraph {
         super(graph);
     }
 
-    public WeightedEdge addEdge(Node a, Node b, Integer weight) {
+    public WeightedEdge addEdge(INode a, INode b, Integer weight) {
         // we know the Edge is a Weighted Edge because of our Factory
         WeightedEdge e = (WeightedEdge) super.addEdge(a, b);
         e.setWeight(weight);
@@ -14,7 +18,7 @@ public class WeightedGraph extends GraphDecorator implements IGraph {
     }
 
     @Override
-    public Edge addEdge(Node a, Node b) {
+    public WeightedEdge addEdge(INode a, INode b) {
         return this.addEdge(a, b, 0);
     }
 }

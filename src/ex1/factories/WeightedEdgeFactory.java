@@ -1,16 +1,18 @@
 package ex1.factories;
 
-import ex1.Edge;
-import ex1.Node;
-import ex1.WeightedEdge;
+import ex1.edge.Edge;
+import ex1.node.INode;
+import ex1.node.Node;
+import ex1.edge.IEdge;
+import ex1.edge.WeightedEdge;
 
 public class WeightedEdgeFactory extends AbstractEdgeFactory {
 
     @Override
-    public Edge createEdge(Node a, Node b) {
+    public IEdge createEdge(INode a, INode b) {
         return createEdge(a, b, 0);
     }
-    public Edge createEdge(Node a, Node b, Integer weight) {
-        return new WeightedEdge(a, b, weight);
+    public WeightedEdge createEdge(INode a, INode b, Integer weight) {
+        return new WeightedEdge(super.createEdge(a,b), weight);
     }
 }

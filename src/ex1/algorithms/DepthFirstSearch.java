@@ -1,6 +1,10 @@
 package ex1.algorithms;
 
-import ex1.*;
+import ex1.edge.IEdge;
+import ex1.graph.IGraph;
+import ex1.graph.WeightedGraph;
+import ex1.node.INode;
+import ex1.node.Node;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -14,36 +18,36 @@ public class DepthFirstSearch {
         this.graph = graph;
     }
 
-    public List<Edge> calculate(String nodeId) {
-        List<Edge> edges = this.graph.getEdges();
-        List<Node> nodes = this.graph.getNodes();
-        List<Edge> result = new LinkedList<>();
+    public List<IEdge> calculate(String nodeId) {
+        List<IEdge> edges = this.graph.getEdges();
+        List<INode> nodes = this.graph.getNodes();
+        List<IEdge> result = new LinkedList<>();
         if(edges.isEmpty() || nodes.isEmpty()) {
             return result;
         }
 
-        Node firstNode = nodes.get(0);
+        INode firstNode = nodes.get(0);
         result = traverseNonRecursive(firstNode, nodeId);
 
-        for(Edge e: edges) {
+        for(IEdge e: edges) {
             e.unmark();
         }
-        for(Node n: nodes) {
+        for(INode n: nodes) {
             n.unmark();
         }
 
         return result;
     }
 
-    private List<Edge> traverseNonRecursive(Node n, String target) {
+    private List<IEdge> traverseNonRecursive(INode n, String target) {
         n.mark();
-        Stack<Edge> edges = new Stack<>();
+        Stack<IEdge> edges = new Stack<>();
         edges.addAll(n.getEdges());
-        List<Edge> result = new LinkedList<>();
+        List<IEdge> result = new LinkedList<>();
         while(!edges.isEmpty()) {
-            Edge e = edges.pop();
+            IEdge e = edges.pop();
             if(!e.isMarked() && e.isExactlyOneNodeMarked()) {
-                Node next = e.getA() == n ? e.getB() : e.getA();
+                INode next = e.getA() == n ? e.getB() : e.getA();
                 e.mark();
                 next.mark();
                 result.add(e);

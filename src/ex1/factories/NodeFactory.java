@@ -1,6 +1,6 @@
 package ex1.factories;
 
-import ex1.Node;
+import ex1.node.Node;
 
 public class NodeFactory extends AbstractNodeFactory {
     @Override

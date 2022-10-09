@@ -1,11 +1,14 @@
-package ex1;
+package ex1.edge;
 
-public class Edge {
-    protected Node a;
-    protected Node b;
+import ex1.node.INode;
+import ex1.node.Node;
+
+public class Edge implements IEdge {
+    protected INode a;
+    protected INode b;
     protected Boolean isMarked;
 
-    public Edge(Node a, Node b) {
+    public Edge(INode a, INode b) {
         this.a = a;
         this.b = b;
         this.isMarked = false;
@@ -29,11 +32,11 @@ public class Edge {
 
 
 
-    public Node getA() {
+    public INode getA() {
         return a;
     }
 
-    public Node getB() {
+    public INode getB() {
         return b;
     }
 }

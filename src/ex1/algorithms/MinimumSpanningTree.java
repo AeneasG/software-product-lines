@@ -1,6 +1,9 @@
 package ex1.algorithms;
 
-import ex1.*;
+import ex1.edge.WeightedEdge;
+import ex1.graph.WeightedGraph;
+import ex1.node.INode;
+import ex1.node.Node;
 
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -16,13 +19,13 @@ public class MinimumSpanningTree {
 
     public List<WeightedEdge> calculate() {
         List<WeightedEdge> edges = this.graph.getWeightedEdges();
-        List<Node> nodes = this.graph.getNodes();
+        List<INode> nodes = this.graph.getNodes();
         List<WeightedEdge> result = new LinkedList<>();
         if(edges.isEmpty() || nodes.isEmpty()) {
             return result;
         }
 
-        Node target = nodes.get(0);
+        INode target = nodes.get(0);
         target.mark();
         WeightedEdge minWeight = findMinNotMarked();
         while(minWeight != null) {
@@ -37,7 +40,7 @@ public class MinimumSpanningTree {
         for(WeightedEdge e: edges) {
             e.unmark();
         }
-        for(Node n: nodes) {
+        for(INode n: nodes) {
             n.unmark();
         }
 
@@ -46,8 +49,8 @@ public class MinimumSpanningTree {
 
     private WeightedEdge findMinNotMarked() {
         return this.graph.getNodes().stream()
-                .filter(Node::isMarked)
-                .map(Node::getEdges)
+                .filter(INode::isMarked)
+                .map(INode::getEdges)
                 .flatMap(List::stream)
                 .filter(e -> !e.isMarked())
                 .map(e -> (WeightedEdge) e)

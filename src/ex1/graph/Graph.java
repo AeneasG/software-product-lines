@@ -1,5 +1,8 @@
-package ex1;
+package ex1.graph;
 
+import ex1.node.INode;
+import ex1.node.Node;
+import ex1.edge.IEdge;
 import ex1.factories.AbstractEdgeFactory;
 import ex1.factories.AbstractNodeFactory;
 
@@ -8,8 +11,8 @@ import java.util.List;
 
 public class Graph implements IGraph {
 
-    protected List<Edge> edges;
-    protected List<Node> nodes;
+    protected List<IEdge> edges;
+    protected List<INode> nodes;
 
     protected AbstractEdgeFactory edgeFactory;
     protected AbstractNodeFactory nodeFactory;
@@ -22,8 +25,8 @@ public class Graph implements IGraph {
     }
 
     @Override
-    public Edge addEdge(Node a, Node b) {
-        Edge e = this.edgeFactory.createEdge(a, b);
+    public IEdge addEdge(INode a, INode b) {
+        IEdge e = this.edgeFactory.createEdge(a, b);
         this.edges.add(e);
         a.addEdge(e);
         b.addEdge(e);
@@ -31,19 +34,19 @@ public class Graph implements IGraph {
     }
 
     @Override
-    public Node addNode(String nodeId) {
-        Node n = this.nodeFactory.createNode(nodeId);
+    public INode addNode(String nodeId) {
+        INode n = this.nodeFactory.createNode(nodeId);
         this.nodes.add(n);
         return n;
     }
 
     @Override
-    public List<Edge> getEdges() {
+    public List<IEdge> getEdges() {
         return this.edges;
     }
 
     @Override
-    public List<Node> getNodes() {
+    public List<INode> getNodes() {
         return this.nodes;
     }
 }

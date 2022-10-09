@@ -1,8 +1,8 @@
 package ex1.factories;
 
-import ex1.Node;
+import ex1.node.INode;
 
 public abstract class AbstractNodeFactory {
 
-    public abstract Node createNode(String id);
+    public abstract INode createNode(String id);
 }

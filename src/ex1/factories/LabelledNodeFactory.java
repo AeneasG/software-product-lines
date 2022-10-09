@@ -1,14 +1,15 @@
 package ex1.factories;
 
-import ex1.LabelledNode;
-import ex1.Node;
+import ex1.node.INode;
+import ex1.node.LabelledNode;
+import ex1.node.Node;
 
 public class LabelledNodeFactory extends AbstractNodeFactory {
     @Override
-    public Node createNode(String id) {
+    public INode createNode(String id) {
         return createNode(id, "");
     }
-    public Node createNode(String id, String label) {
-        return new LabelledNode(id, label);
+    public INode createNode(String id, String label) {
+        return new LabelledNode(new Node(id), label);
     }
 }

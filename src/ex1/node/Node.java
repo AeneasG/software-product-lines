@@ -1,10 +1,12 @@
-package ex1;
+package ex1.node;
+
+import ex1.edge.IEdge;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Node {
-    protected List<Edge> edges;
+public class Node implements INode {
+    protected List<IEdge> edges;
 
     protected Boolean isMarked;
     protected String nodeId;
@@ -15,11 +17,11 @@ public class Node {
         this.isMarked = false;
     }
 
-    void addEdge(Edge edge) {
+    public void addEdge(IEdge edge) {
         this.edges.add(edge);
     }
 
-    public List<Edge> getEdges() {
+    public List<IEdge> getEdges() {
         return edges;
     }
 
